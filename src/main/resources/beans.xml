@@ -20,6 +20,10 @@
         <constructor-arg value="^default.*"/>
     </bean>
 
+    <!-- This post processor will go through our beans and assign default values to ConstructorInjectionBean fields
+        if they are null. -->
+    <bean class="bean_factory.bean_post_processor.MyBeanPostProcessor" />
+
     <bean name="int-type-constructor" class="bean_factory.example.ConstructorInjectionBean">
         <constructor-arg type="java.lang.Integer" value="1"/>
     </bean>

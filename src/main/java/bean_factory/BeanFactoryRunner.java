@@ -17,9 +17,15 @@ public class BeanFactoryRunner {
         ConstructorInjectionBean defaultConstructorBean =
                 applicationContext.getBean("default-type-constructor", ConstructorInjectionBean.class);
 
-        System.out.println(intConstructorBean.getIntArgument());
-        System.out.println(stringConstructorBean.getStringArgument());
-        System.out.println(defaultConstructorBean.getIntArgument());
+        System.out.println("intConstructorBean.intArgument = " + intConstructorBean.getIntArgument());
+        System.out.println("intConstructorBean.stringArgument = " + intConstructorBean.getStringArgument());
+
+        System.out.println("stringConstructorBean.intArgument = " + stringConstructorBean.getIntArgument());
+        System.out.println("stringConstructorBean.stringArgument = " + stringConstructorBean.getStringArgument());
+
+
+        System.out.println("defaultConstructorBean.intArgument = " + defaultConstructorBean.getIntArgument());
+        System.out.println("defaultConstructorBean.stringArgument = " + defaultConstructorBean.getStringArgument());
 
         SetterInjectionBean setterInjectionBean =
                 applicationContext.getBean("setter-injection", SetterInjectionBean.class);
