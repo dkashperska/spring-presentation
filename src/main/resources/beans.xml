@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <!-- Spring automatically registers beans that implement specific interfaces. Here we declare beans which implement
+        BeanPostProcessor and BeanFactoryPostProcessor and spring registers and uses them to
+        post processes other beans. -->
+
+    <!-- Here we are registering a spring post processor that checks beans for @Required fields and throws
+        a BeanInitializationException if such fields are not set. -->
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+
+    <!-- This post processor alters bean definitions for beans which names match the regexp.
+        Constructor args are altered such that the first ones type is changed to Integer,
+        all subsequent args are removed. -->
+    <bean class="bean_factory.bean_factory_post_processor.MyBeanDefinitionPostProcessor">
+        <constructor-arg value="^default.*"/>
+    </bean>
+
+    <bean name="int-type-constructor" class="bean_factory.example.ConstructorInjectionBean">
+        <constructor-arg type="java.lang.Integer" value="1"/>
+    </bean>
+
+    <!-- This bean will be created only because MyBeanDefinitionPostProcessor alters its definition.
+        If it wasn't present bean initialization would fail due to ConstructorInjectionBean not having a 3 argument
+        constructor. -->
+    <bean name="default-type-constructor" class="bean_factory.example.ConstructorInjectionBean">
+        <constructor-arg value="5"/>
+        <constructor-arg value="6"/>
+        <constructor-arg value="7"/>
+    </bean>
+
+    <bean name="string-type-constructor" class="bean_factory.example.ConstructorInjectionBean">
+        <constructor-arg type="java.lang.String" value="Hi! I'm a String"/>
+    </bean>
+
+    <bean name="setter-injection" class="bean_factory.example.SetterInjectionBean" >
+        <property name="intArgument" value="1" />
+        <property name="stringArgument" value="I'm required" />
+    </bean>
+
+</beans>
